@@ -14,14 +14,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/login_username_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_hint_username"
-            android:maxLength="30"
-            android:singleLine="true"
-            />
+        <requestFocus>
+            <EditText
+                android:id="@+id/login_username_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_hint_username"
+                android:maxLength="30"
+                android:singleLine="true"
+                />
+        </requestFocus>
     </LinearLayout>
 
     <LinearLayout
@@ -36,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_hint_password"
-            android:inputType="textWebPassword"
+            android:inputType="textPassword"
             android:maxLength="20"
             android:singleLine="true"
             />
