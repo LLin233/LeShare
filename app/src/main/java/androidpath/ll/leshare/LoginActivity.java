@@ -24,11 +24,16 @@ public class LoginActivity extends Activity {
         ButterKnife.inject(this);
     }
 
+
+
+    //test the input for development purpose for now.
+
     @OnClick(R.id.btn_login)
     void login() {
         String msg = "Username: " + mUsernameInput.getText() +
                 "\nPassword: " + mPasswordInput.getText();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        //TODO implement login later on
     }
 
 }
