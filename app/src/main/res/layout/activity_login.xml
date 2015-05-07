@@ -6,24 +6,31 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="androidpath.ll.leshare.LoginActivity">
+                tools:context="androidpath.ll.leshare.View.LoginActivity"
+                android:background="@drawable/bg_login"
+    >
 
     <LinearLayout
         android:id="@+id/login_layout_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="150dp"
+        android:paddingBottom="10dp">
 
-        <requestFocus>
-            <EditText
-                android:id="@+id/login_username_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/login_hint_username"
-                android:maxLength="30"
-                android:singleLine="true"
-                />
-        </requestFocus>
+        <EditText
+            android:id="@+id/login_username_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_hint_username"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:textColorHint="@android:color/white">
+
+            <requestFocus/>
+        </EditText>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -31,17 +38,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_layout_username"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
 
         <EditText
             android:id="@+id/login_password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_hint_password"
+            android:hint="@string/input_hint_password"
             android:inputType="textPassword"
             android:maxLength="20"
             android:singleLine="true"
-            />
+            android:textColorHint="@android:color/white"/>
 
     </LinearLayout>
 
@@ -54,7 +62,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/login_layout_password"
-        android:text="@string/login_button_label"/>
+        android:text="@string/login_button_label"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/login_signUp_label"
@@ -62,7 +71,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Sign up"/>
+        android:text="@string/login_signup_label"
+        android:layout_below="@+id/btn_login"
+        android:paddingTop="50dp"
+        android:clickable="true"
+        android:textColor="@android:color/white"/>
 
 
 </RelativeLayout>

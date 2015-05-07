@@ -3,9 +3,22 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!--hint-->
+    <string name="input_hint_username">Username</string>
+    <string name="input_hint_password">Password</string>
+    <string name="input_hint_email">Email</string>
+
+    <!--LoginActivity -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="login_button_label">Login</string>
-    <string name="login_hint_username">Username</string>
-    <string name="login_hint_password">Password</string>
+    <string name="login_signup_label">Sign up</string>
+
+    <!--SignUpActivity -->
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="button_signup_label">Sign up</string>
+    <string name="signup_error_msg">Please make sure you enter a username, password and your email address.</string>
+    <string name="signup_error_title">Oops!!</string>
+
 
 </resources>
