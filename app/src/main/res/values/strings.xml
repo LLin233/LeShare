@@ -13,12 +13,17 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="login_button_label">Login</string>
     <string name="login_signup_label">Sign up</string>
+    <string name="login_error_msg">Please make sure you enter a username and password.</string>
+    <string name="login_error_title">Oops!!</string>
 
     <!--SignUpActivity -->
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="button_signup_label">Sign up</string>
     <string name="signup_error_msg">Please make sure you enter a username, password and your email address.</string>
     <string name="signup_error_title">Oops!!</string>
+
+    <!--Menu -->
+    <string name="menu_logout_label">Log out</string>
 
 
 </resources>
