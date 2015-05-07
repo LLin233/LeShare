@@ -3,7 +3,6 @@ package androidpath.ll.leshare.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.parse.ParseException;
@@ -26,11 +25,6 @@ public class SignUpActivity extends Activity {
     @InjectView(R.id.signup_input_email)
     protected EditText mEmail;
 
-    //TODO May be some animation here to the button clicking
-    @InjectView(R.id.signup_btn_signup)
-    protected Button mSignUpButton;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +44,7 @@ public class SignUpActivity extends Activity {
             MyAlert.showSignUpAlertDialog(SignUpActivity.this, getString(R.string.signup_error_title), getString(R.string.signup_error_msg));
 
         } else {
-            //TODO create new user;
+            // create new user;
             // Doc: https://www.parse.com/docs/android/guide#users
             ParseUser newUser = new ParseUser();
             newUser.setUsername(username);
