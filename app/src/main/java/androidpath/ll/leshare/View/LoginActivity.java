@@ -12,6 +12,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import androidpath.ll.leshare.Helper.MyAlert;
+import androidpath.ll.leshare.Helper.ProcessBarHelper;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -55,12 +56,13 @@ public class LoginActivity extends AppCompatActivity {
 
         } else {
             //Login
-            progressBar.setIndeterminate(true);
+            ProcessBarHelper.startProcess(progressBar);
             // Doc: https://www.parse.com/docs/android/guide#users
             ParseUser.logInInBackground(username, password, new LogInCallback() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
-                    progressBar.setIndeterminate(false);
+
+                    ProcessBarHelper.completeProcess(progressBar);
 
                     if (e == null) {
                         //login successfully, go back to Inbox (MainActivity)

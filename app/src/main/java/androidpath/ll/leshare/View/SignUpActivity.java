@@ -11,6 +11,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 import androidpath.ll.leshare.Helper.MyAlert;
+import androidpath.ll.leshare.Helper.ProcessBarHelper;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,15 +51,17 @@ public class SignUpActivity extends Activity {
         } else {
             // create new user;
             // Doc: https://www.parse.com/docs/android/guide#users
-            progressBar.setIndeterminate(true);
+            ProcessBarHelper.startProcess(progressBar);
+
             ParseUser newUser = new ParseUser();
             newUser.setUsername(username);
             newUser.setPassword(password);
             newUser.setEmail(email);
+
             newUser.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {
-                    progressBar.setIndeterminate(false);
+                    ProcessBarHelper.completeProcess(progressBar);
                     if (e == null) {
                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
