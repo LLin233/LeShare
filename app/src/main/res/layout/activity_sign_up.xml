@@ -5,10 +5,18 @@
               android:paddingBottom="@dimen/activity_vertical_margin"
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
               tools:context="androidpath.ll.leshare.View.SignUpActivity"
               android:orientation="vertical">
 
+
+    <ProgressBar
+        android:id="@+id/signup_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:indeterminate="false"
+        />
 
     <EditText
         android:id="@+id/signup_input_name"
@@ -35,14 +43,6 @@
         android:ems="10"
         android:hint="@string/input_hint_email"
         android:inputType="textEmailAddress"
-        />
-
-    <ProgressBar
-        android:id="@+id/signup_progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="false"
         />
 
     <Button
