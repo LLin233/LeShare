@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -24,6 +25,9 @@ public class SignUpActivity extends Activity {
     protected EditText mPassword;
     @InjectView(R.id.signup_input_email)
     protected EditText mEmail;
+    @InjectView(R.id.signup_progressBar)
+    protected ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class SignUpActivity extends Activity {
         } else {
             // create new user;
             // Doc: https://www.parse.com/docs/android/guide#users
+            progressBar.setIndeterminate(true);
             ParseUser newUser = new ParseUser();
             newUser.setUsername(username);
             newUser.setPassword(password);
@@ -53,6 +58,7 @@ public class SignUpActivity extends Activity {
             newUser.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {
+                    progressBar.setIndeterminate(false);
                     if (e == null) {
                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
