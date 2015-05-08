@@ -2,28 +2,42 @@ package androidpath.ll.leshare.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 
+import androidpath.ll.leshare.Adapter.SectionsPagerAdapter;
 import androidpath.ll.leshare.R;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class MainActivity extends AppCompatActivity {
+
     public static final String TAG = MainActivity.class.getSimpleName();
+    protected PagerAdapter mPagerAdapter;
+
+    @InjectView(R.id.viewpager)
+    ViewPager mViewPager;
+    @InjectView(R.id.tabs)
+    PagerSlidingTabStrip mTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
+        //User has been logined
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
-
         // https://www.parse.com/docs/android/guide#users-logging-in
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
@@ -33,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
             // show the signup or login screen
             navigateToLogin();
         }
+
+        //Tab
+        //https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip#install-pagerslidingtabstrip
+        mPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabs.setViewPager(mViewPager);
+
     }
 
     private void navigateToLogin() {
@@ -41,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -24,6 +24,13 @@
 
     <!--Menu -->
     <string name="menu_logout_label">Log out</string>
+    <string name="tab_title_section1">Inbox</string>
+    <string name="tab_title_section2">Friends</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="inbox_empty_label">No New Message</string>
+    <string name="friend_empty_label">Add Friends to begin!</string>
 
 
 </resources>
