@@ -10,14 +10,14 @@
     <string name="input_hint_email">Email</string>
 
     <!--LoginActivity -->
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login</string>
     <string name="login_button_label">Login</string>
     <string name="login_signup_label">Sign up</string>
     <string name="login_error_msg">Please make sure you enter a username and password.</string>
     <string name="login_error_title">Oops!!</string>
 
     <!--SignUpActivity -->
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_up">Sign Up</string>
     <string name="button_signup_label">Sign up</string>
     <string name="signup_error_msg">Please make sure you enter a username, password and your email address.</string>
     <string name="signup_error_title">Oops!!</string>
@@ -28,9 +28,11 @@
     <string name="tab_title_section2">Friends</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="inbox_empty_label">No New Message</string>
     <string name="friend_empty_label">Add Friends to begin!</string>
+    <string name="menu_edit_friends_label">Edit Friends</string>
+    <string name="title_activity_edit_friends">Edit Friends</string>
+    <string name="error_title">We\'re sorry.</string>
 
 
 </resources>

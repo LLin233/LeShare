@@ -20,6 +20,6 @@ public class ProcessBarHelper {
      */
     public static void completeProcess(ProgressBar progressBar) {
         progressBar.setIndeterminate(false);
-        progressBar.setVisibility(ProgressBar.INVISIBLE);
+        progressBar.setVisibility(ProgressBar.GONE);
     }
 }
