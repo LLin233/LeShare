@@ -34,6 +34,9 @@
     <string name="title_activity_edit_friends">Edit Friends</string>
     <string name="error_title">We\'re sorry.</string>
     <string name="menu_camera_label">Camera</string>
+    <string name="msg_general_error">Sorry, there was a error!</string>
+    <string name="msg_error_external_storage">Can\'t accress external storage in your device.</string>
+    <string name="msg_error_opening_file">Can\'t open file from device.</string>
 
 
     <string-array name="camera_choices">

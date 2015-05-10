@@ -18,6 +18,9 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import androidpath.ll.leshare.Adapter.SectionsPagerAdapter;
 import androidpath.ll.leshare.Helper.MediaHelper;
 import androidpath.ll.leshare.R;
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_TAKE_VIDEO = 1;
     public static final int REQUEST_CHOOSE_PHOTO = 2;
     public static final int REQUEST_CHOOSE_VIDEO = 3;
+
+    public static final int FILE_SIZE_LIMIT = 1024 * 1024 * 10; //10 MB
 
 
     //view component
@@ -53,27 +58,23 @@ public class MainActivity extends AppCompatActivity {
                     takePhoto();
                     break;
                 case 1: //take video
+                    takeVideo();
                     break;
                 case 2: //choose pic
-
+                    Intent choosePhotoIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    choosePhotoIntent.setType("image/*");
+                    startActivityForResult(choosePhotoIntent, REQUEST_CHOOSE_PHOTO);
                     break;
                 case 3: //choose video
+                    Intent chooseVideoIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    chooseVideoIntent.setType("video/*");
+                    Toast.makeText(MainActivity.this, "Video must be less than 10 MB", Toast.LENGTH_SHORT).show();
+                    startActivityForResult(chooseVideoIntent, REQUEST_CHOOSE_VIDEO);
                     break;
             }
         }
-    };
 
-    private void takePhoto() {
-        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        mMediaUri = MediaHelper.getOutputMediaFileUri(this, MediaHelper.MEDIA_TYPE_IMAGE);
-        if (mMediaUri == null) {
-            //display a error
-            Toast.makeText(MainActivity.this, "Can't accress external storage in your device.", Toast.LENGTH_SHORT).show();
-        } else {
-            takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
-            startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO);
-        }
-    }
+    };
 
 
     @Override
@@ -102,13 +103,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void navigateToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
 
+            if (requestCode == REQUEST_CHOOSE_PHOTO || requestCode == REQUEST_CHOOSE_VIDEO) {
+                if (data == null) {
+                    Toast.makeText(this, getString(R.string.msg_general_error), Toast.LENGTH_SHORT).show();
+                } else {
+                    mMediaUri = data.getData();
+                }
+
+
+                if (requestCode == REQUEST_CHOOSE_VIDEO) { //filter data by size < 10 MB
+                    int size = 0;
+                    InputStream inputStream = null;
+                    try {
+                        inputStream = getContentResolver().openInputStream(mMediaUri);
+                        size = inputStream.available();
+                    } catch (IOException e) {
+                        Toast.makeText(this, getString(R.string.msg_error_opening_file), Toast.LENGTH_SHORT).show();
+                        return;
+                    } finally {
+                        try {
+                            if (inputStream != null) {
+                                inputStream.close();
+                            }
+                        } catch (IOException e) {
+                        }
+                    }
+                    if (size > FILE_SIZE_LIMIT) {
+                        Toast.makeText(this, "file is too large to select.", Toast.LENGTH_SHORT);
+                        return;
+                    }
+                }
+            } else {
+                //add content to Gallery if take pic or video
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScanIntent.setData(mMediaUri);
+                sendBroadcast(mediaScanIntent);
+                Log.d(TAG, "added to Gallery");
+            }
+
+
+        } else if (resultCode != RESULT_CANCELED) {
+            Toast.makeText(this, getString(R.string.msg_general_error), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,4 +179,39 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void takePhoto() {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mMediaUri = MediaHelper.getOutputMediaFileUri(this, MediaHelper.MEDIA_TYPE_IMAGE);
+        if (mMediaUri == null) {
+            //display a error
+            Toast.makeText(MainActivity.this, "Can't accress external storage in your device.", Toast.LENGTH_SHORT).show();
+        } else {
+            takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+            startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO);
+        }
+    }
+
+    private void takeVideo() {
+        Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        mMediaUri = MediaHelper.getOutputMediaFileUri(this, MediaHelper.MEDIA_TYPE_VIDEO);
+        if (mMediaUri == null) {
+            //display a error
+            Toast.makeText(MainActivity.this, getString(R.string.msg_error_external_storage), Toast.LENGTH_SHORT).show();
+        } else {
+            videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+            videoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+            // @see http://developer.android.com/reference/android/provider/MediaStore.html#EXTRA_VIDEO_QUALITY
+            videoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0); // value 0 means low quality, suitable for MMS messages, and value 1 means high quality.
+            startActivityForResult(videoIntent, REQUEST_TAKE_VIDEO);
+        }
+    }
+
 }
