@@ -49,7 +49,7 @@ public class FriendsFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         mCurrentUser = ParseUser.getCurrentUser();
-        getListView().setEmptyView(mProgressBar);
+        //getListView().setEmptyView(mProgressBar);
         mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_RELATION);
         ProcessBarHelper.startProcess(mProgressBar);
 

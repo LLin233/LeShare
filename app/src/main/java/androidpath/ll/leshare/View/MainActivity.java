@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     mMediaUri = data.getData();
                 }
 
-
                 if (requestCode == REQUEST_CHOOSE_VIDEO) { //filter data by size < 10 MB
                     int size = 0;
                     InputStream inputStream = null;
@@ -145,6 +144,11 @@ public class MainActivity extends AppCompatActivity {
                 sendBroadcast(mediaScanIntent);
                 Log.d(TAG, "added to Gallery");
             }
+
+            //after uri is ready, start recipientsActivity
+            Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
+            recipientsIntent.setData(mMediaUri);
+            startActivity(recipientsIntent);
 
 
         } else if (resultCode != RESULT_CANCELED) {

@@ -44,6 +44,7 @@ public class EditFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friends);
         ButterKnife.inject(this);
+        mFriendsListView.setEmptyView(mProgressBar);
         ProcessBarHelper.startProcess(mProgressBar);
 
         //make list checkable to implement "select" / "deselect"
