@@ -27,13 +27,21 @@
     <string name="tab_title_section1">Inbox</string>
     <string name="tab_title_section2">Friends</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="inbox_empty_label">No New Message</string>
     <string name="friend_empty_label">Add Friends to begin!</string>
     <string name="menu_edit_friends_label">Edit Friends</string>
     <string name="title_activity_edit_friends">Edit Friends</string>
     <string name="error_title">We\'re sorry.</string>
     <string name="menu_camera_label">Camera</string>
+
+
+    <string-array name="camera_choices">
+        <item name="camera_item_take_pic">Take Picture</item>
+        <item name="camera_item_take_video">Take video</item>
+        <item name="camera_item_choose_pic">Choose Picture</item>
+        <item name="camera_item_choose_video">Choose Video</item>
+    </string-array>
 
 
 </resources>
