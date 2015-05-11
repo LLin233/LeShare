@@ -72,7 +72,7 @@ public class FriendsFragment extends ListFragment {
                     setListAdapter(adapter);
                 } else {
                     Log.e(TAG, e.getMessage());
-                    MyAlert.showSignUpAlertDialog(getListView().getContext(), getString(R.string.error_title), e.getMessage());
+                    MyAlert.showAlertDialog(getListView().getContext(), getString(R.string.error_title), e.getMessage());
                 }
 
             }

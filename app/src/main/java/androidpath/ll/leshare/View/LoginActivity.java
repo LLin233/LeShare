@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (username.isEmpty() || password.isEmpty()) {
             //alert user that sign up info is not completed
-            MyAlert.showSignUpAlertDialog(LoginActivity.this, getString(R.string.login_error_title), getString(R.string.login_error_msg));
+            MyAlert.showAlertDialog(LoginActivity.this, getString(R.string.login_error_title), getString(R.string.login_error_msg));
 
         } else {
             //Login
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     } else {
-                        MyAlert.showSignUpAlertDialog(LoginActivity.this, getString(R.string.login_error_title), e.getMessage());
+                        MyAlert.showAlertDialog(LoginActivity.this, getString(R.string.login_error_title), e.getMessage());
                     }
                 }
             });

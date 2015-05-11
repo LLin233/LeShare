@@ -46,7 +46,7 @@ public class SignUpActivity extends Activity {
 
         if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
             //alert user that sign up info is not completed
-            MyAlert.showSignUpAlertDialog(SignUpActivity.this, getString(R.string.signup_error_title), getString(R.string.signup_error_msg));
+            MyAlert.showAlertDialog(SignUpActivity.this, getString(R.string.signup_error_title), getString(R.string.signup_error_msg));
 
         } else {
             // create new user;
@@ -68,7 +68,7 @@ public class SignUpActivity extends Activity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     } else {
-                        MyAlert.showSignUpAlertDialog(SignUpActivity.this, getString(R.string.signup_error_title), e.getMessage());
+                        MyAlert.showAlertDialog(SignUpActivity.this, getString(R.string.signup_error_title), e.getMessage());
                     }
                 }
             });

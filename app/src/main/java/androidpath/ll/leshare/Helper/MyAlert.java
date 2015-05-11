@@ -14,7 +14,7 @@ public class MyAlert {
      * @param msg
      * shows AlertDialog instance which creates by builder.
      */
-    public static void showSignUpAlertDialog(Context context, String title, String msg) {
+    public static void showAlertDialog(Context context, String title, String msg) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)

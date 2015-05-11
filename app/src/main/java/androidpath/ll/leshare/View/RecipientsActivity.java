@@ -12,17 +12,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidpath.ll.leshare.Helper.FileHelper;
 import androidpath.ll.leshare.Helper.MyAlert;
 import androidpath.ll.leshare.Helper.ParseConstants;
 import androidpath.ll.leshare.Helper.ProcessBarHelper;
@@ -98,7 +102,7 @@ public class RecipientsActivity extends AppCompatActivity {
                     mFriendsListView.setAdapter(adapter);
                 } else {
                     Log.e(TAG, e.getMessage());
-                    MyAlert.showSignUpAlertDialog(RecipientsActivity.this, getString(R.string.error_title), e.getMessage());
+                    MyAlert.showAlertDialog(RecipientsActivity.this, getString(R.string.error_title), e.getMessage());
                 }
 
             }
@@ -125,7 +129,14 @@ public class RecipientsActivity extends AppCompatActivity {
         if (id == R.id.action_send) {
             //TODO send message to back-end
             ParseObject message = createMessgae();
-            //send(message);
+            if (message != null ) {
+                send(message);
+                finish(); // close activity after send out the message.
+            } else {
+                //error
+                MyAlert.showAlertDialog(this, getString(R.string.msg_error_selecting_file), getString(R.string.msg_error_selecting_file_title));
+            }
+
             Log.i(TAG, "Send msg");
             return true;
         }
@@ -134,13 +145,39 @@ public class RecipientsActivity extends AppCompatActivity {
 
     private ParseObject createMessgae() {
         ParseObject message = new ParseObject(ParseConstants.CLASS_MESSAGES);
+
+        //add data to message
         message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
         message.put(ParseConstants.KEY_USERNAME, ParseUser.getCurrentUser().getUsername());
         message.put(ParseConstants.KEY_RECIPIENT_IDS, getRecipientIds());
         message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
 
-        return message;
+        byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
+        if (fileBytes == null || fileBytes.length == 0) {
+            return null;
+        } else {
+            if (mFileType.equals(ParseConstants.TYPE_IMAGE)) {
+                fileBytes = FileHelper.reduceImageForUpload(fileBytes);  //limit 10MB
+            }
+            String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
+            ParseFile file = new ParseFile(fileName, fileBytes);
+            message.put(ParseConstants.KEY_FILE, file);
+            return message;
+        }
+    }
 
+
+    protected void send(ParseObject message) {
+        message.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null) {
+                    Toast.makeText(RecipientsActivity.this, "Message sent successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    MyAlert.showAlertDialog(RecipientsActivity.this, "There was a error sending message, please try again.", getString(R.string.msg_error_selecting_file_title));
+                }
+            }
+        });
     }
 
     private ArrayList<String> getRecipientIds() {

@@ -3,8 +3,6 @@ package androidpath.ll.leshare.View;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -105,7 +103,7 @@ public class EditFriendsActivity extends AppCompatActivity {
 
                 } else {
                     Log.e(TAG, e.getMessage());
-                    MyAlert.showSignUpAlertDialog(EditFriendsActivity.this, getString(R.string.error_title), e.getMessage());
+                    MyAlert.showAlertDialog(EditFriendsActivity.this, getString(R.string.error_title), e.getMessage());
                 }
             }
         });
