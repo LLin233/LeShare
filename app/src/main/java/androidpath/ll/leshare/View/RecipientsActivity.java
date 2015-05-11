@@ -127,10 +127,10 @@ public class RecipientsActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_send) {
-            //TODO send message to back-end
+            //send message to back-end
             ParseObject message = createMessgae();
             if (message != null ) {
-                send(message);
+                sendMessage(message);
                 finish(); // close activity after send out the message.
             } else {
                 //error
@@ -167,7 +167,7 @@ public class RecipientsActivity extends AppCompatActivity {
     }
 
 
-    protected void send(ParseObject message) {
+    protected void sendMessage(ParseObject message) {
         message.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
