@@ -2,8 +2,11 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="androidpath.ll.leshare.View.RecipientsActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_send"
+        android:icon="@mipmap/ic_action_send_now"
+        android:orderInCategory="100"
+        android:title="@string/action_send_msg"
+        android:visible="false"
+        app:showAsAction="always"/>
 </menu>

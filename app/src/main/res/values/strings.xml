@@ -47,6 +47,7 @@
     </string-array>
     <string name="title_activity_recipients">Choose Recipients</string>
     <string name="msg_empty_reciptents_list">Choose some friends first.</string>
+    <string name="action_send_msg">Send</string>
 
 
 </resources>
