@@ -23,6 +23,7 @@ import java.io.InputStream;
 
 import androidpath.ll.leshare.Adapter.SectionsPagerAdapter;
 import androidpath.ll.leshare.Helper.MediaHelper;
+import androidpath.ll.leshare.Helper.ParseConstants;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -148,6 +149,13 @@ public class MainActivity extends AppCompatActivity {
             //after uri is ready, start recipientsActivity
             Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
             recipientsIntent.setData(mMediaUri);
+            String fileType;
+            if (requestCode == REQUEST_CHOOSE_PHOTO || requestCode == REQUEST_TAKE_PHOTO) {
+                fileType = ParseConstants.TYPE_IMAGE;
+            } else {
+                fileType = ParseConstants.TYPE_VIDEO;
+            }
+            recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE, fileType);
             startActivity(recipientsIntent);
 
 

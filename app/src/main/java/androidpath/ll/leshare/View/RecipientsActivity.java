@@ -1,5 +1,6 @@
 package androidpath.ll.leshare.View;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,6 +37,8 @@ public class RecipientsActivity extends AppCompatActivity {
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
     protected MenuItem mMenuItem_Send;
+    protected Uri mMediaUri;
+    protected String mFileType;
 
     @InjectView(R.id.recipients_progressBar)
     ProgressBar mProgressBar;
@@ -50,6 +53,10 @@ public class RecipientsActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         mFriendsListView.setEmptyView((TextView) findViewById(android.R.id.empty)); //if list is empty
         mFriendsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        //get file
+        mMediaUri = getIntent().getData();
+        mFileType = getIntent().getExtras().getString(ParseConstants.KEY_FILE_TYPE);
 
         //add click item event
         mFriendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,6 +137,7 @@ public class RecipientsActivity extends AppCompatActivity {
         message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
         message.put(ParseConstants.KEY_USERNAME, ParseUser.getCurrentUser().getUsername());
         message.put(ParseConstants.KEY_RECIPIENT_IDS, getRecipientIds());
+        message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
 
         return message;
 
