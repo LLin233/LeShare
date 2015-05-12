@@ -50,6 +50,7 @@
     <string name="action_send_msg">Send</string>
     <string name="msg_error_selecting_file">There was an error with the file selected. Please select a different file</string>
     <string name="msg_error_selecting_file_title">We are sorry!</string>
+    <string name="title_activity_view_image">ViewImageActivity</string>
 
 
 </resources>

@@ -12,14 +12,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar;
+import com.parse.FindCallback;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import androidpath.ll.leshare.Adapter.SectionsPagerAdapter;
 import androidpath.ll.leshare.Helper.MediaHelper;
@@ -47,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.tabs)
     PagerSlidingTabStrip mTabs;
 
+
     //member variable
     protected PagerAdapter mPagerAdapter;
     protected Uri mMediaUri;
+
 
     protected DialogInterface.OnClickListener mCameraDialogListener = new DialogInterface.OnClickListener() {
         @Override
@@ -84,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
+
+
         //User has been logined
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
         // https://www.parse.com/docs/android/guide#users-logging-in
@@ -103,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         mTabs.setViewPager(mViewPager);
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
