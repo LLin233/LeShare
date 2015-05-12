@@ -18,6 +18,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidpath.ll.leshare.Adapter.MessageAdapter;
@@ -68,8 +69,9 @@ public class InboxFragment extends ListFragment {
                 if (e == null) {
 //                    //msg is found
                     mMessages = messages;
-                    MessageAdapter adapter = new MessageAdapter(getListView().getContext(), mMessages);
-                    setListAdapter(adapter);
+                    if (getListView().getAdapter() == null) {
+                        MessageAdapter adapter = new MessageAdapter(getListView().getContext(), mMessages);
+                        setListAdapter(adapter);
 
 //                  String[] usernames = new String[mMessages.size()];
 //                  int i = 0;
@@ -78,10 +80,14 @@ public class InboxFragment extends ListFragment {
 //                      i++;
 //                  }
 //                  ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_list_item_1, usernames);
+                    } else {
+                        ((MessageAdapter) getListView().getAdapter()).update(mMessages);
+                    }
                 }
             }
         });
     }
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -101,6 +107,22 @@ public class InboxFragment extends ListFragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, fileUri);
             intent.setDataAndType(fileUri, "video/*");
             startActivity(intent);
+        }
+
+        //delete item after click it.
+        List<String> ids = message.getList(ParseConstants.KEY_RECIPIENT_IDS);
+
+        if (ids.size() == 1) {
+            //message is only sent to current user, delete it from server.
+            message.deleteInBackground();
+        } else {
+            //remove recipient from list
+            //ids.remove(ParseUser.getCurrentUser().getObjectId());
+            //save recipient ids to message over server.
+            ArrayList<String> idsToRemove = new ArrayList<String>();
+            idsToRemove.add(ParseUser.getCurrentUser().getObjectId());
+            message.removeAll(ParseConstants.KEY_RECIPIENT_IDS, idsToRemove);
+            message.saveInBackground();
         }
     }
 }

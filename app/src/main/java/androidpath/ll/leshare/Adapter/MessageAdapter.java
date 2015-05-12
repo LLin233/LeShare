@@ -65,6 +65,12 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
             ButterKnife.inject(this, view);
         }
     }
+
+    public void update(List<ParseObject> messages) {
+        mMessages.clear();
+        mMessages.addAll(messages);
+        notifyDataSetChanged();
+    }
 }
 
 
