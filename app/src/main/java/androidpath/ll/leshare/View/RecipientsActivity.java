@@ -1,8 +1,8 @@
 package androidpath.ll.leshare.View;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +34,7 @@ import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class RecipientsActivity extends AppCompatActivity {
+public class RecipientsActivity extends Activity {
     public static final String TAG = RecipientsActivity.class.getSimpleName();
 
     protected List<ParseUser> mFriends;
@@ -129,7 +129,7 @@ public class RecipientsActivity extends AppCompatActivity {
         if (id == R.id.action_send) {
             //send message to back-end
             ParseObject message = createMessgae();
-            if (message != null ) {
+            if (message != null) {
                 sendMessage(message);
                 finish(); // close activity after send out the message.
             } else {
@@ -171,7 +171,7 @@ public class RecipientsActivity extends AppCompatActivity {
         message.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e == null) {
+                if (e == null) {
                     Toast.makeText(RecipientsActivity.this, "Message sent successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     MyAlert.showAlertDialog(RecipientsActivity.this, "There was a error sending message, please try again.", getString(R.string.msg_error_selecting_file_title));

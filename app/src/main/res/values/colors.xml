@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="white" type="color">#FFFFFF</item>
     <item name="blue" type="color">#2196F3</item>
     <item name="purple" type="color">#FFAA66CC</item>
     <item name="green" type="color">#FF99CC00</item>
@@ -11,4 +12,12 @@
     <item name="darkorange" type="color">#FFFF8800</item>
     <item name="darkred" type="color">#FFCC0000</item>
     <item name="Indigo" type="color">#3F51B5</item>
+
+    <item name="background_purple" type="color">#3F2466</item>
+    <item name="light_gray" type="color">#BBBBBB</item>
+    <color name="apptheme_color">#61408c</color>
+    <color name="light_purple_button">#e1d2f3</color>
+    <color name="pressed_purple_button">#ba9dda</color>
+    <color name="focused_purple_button">#d6c3ed</color>
+    <color name="text_color">#250054</color>
 </resources>

@@ -1,7 +1,7 @@
 package androidpath.ll.leshare.View;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,7 +25,7 @@ import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class EditFriendsActivity extends AppCompatActivity {
+public class EditFriendsActivity extends Activity {
     public static final String TAG = EditFriendsActivity.class.getSimpleName();
 
     protected List<ParseUser> mUsers;
