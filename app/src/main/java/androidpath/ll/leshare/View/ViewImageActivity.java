@@ -3,8 +3,6 @@ package androidpath.ll.leshare.View;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -12,6 +10,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidpath.ll.leshare.Helper.ParseConstants;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,6 +20,8 @@ public class ViewImageActivity extends Activity {
     @InjectView(R.id.imageView)
     ImageView mImageView;
 
+    protected int orientation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,17 +29,27 @@ public class ViewImageActivity extends Activity {
         ButterKnife.inject(this);
 
         Uri imageUri = getIntent().getData();
-        Picasso.with(this).load(imageUri.toString()).into(mImageView);
+        int rotate = getIntent().getExtras().getInt(ParseConstants.KEY_ROTATION);
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        Picasso.with(this).load(imageUri.toString()).rotate(rotate).into(mImageView, new com.squareup.picasso.Callback() {
             @Override
-            public void run() {
-                // after delay close imageView
-                finish();
-            }
-        }, 10 * 1000);
+            public void onSuccess() {
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        // after delay close imageView
+                        finish();
+                    }
+                }, 10 * 1000);
 
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
     }
 
 }

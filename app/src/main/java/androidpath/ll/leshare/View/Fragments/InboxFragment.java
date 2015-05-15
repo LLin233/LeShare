@@ -101,6 +101,7 @@ public class InboxFragment extends ListFragment {
             //view Image
             Intent intent = new Intent(getActivity(), ViewImageActivity.class);
             intent.setData(fileUri);
+            intent.putExtra(ParseConstants.KEY_ROTATION, message.getInt(ParseConstants.KEY_ROTATION));
             startActivity(intent);
         } else {
             //view Video with implicit intent
