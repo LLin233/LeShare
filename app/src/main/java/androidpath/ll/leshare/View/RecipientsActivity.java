@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidpath.ll.leshare.Helper.FileHelper;
+import androidpath.ll.leshare.Helper.MediaHelper;
 import androidpath.ll.leshare.Helper.MyAlert;
 import androidpath.ll.leshare.Helper.ParseConstants;
 import androidpath.ll.leshare.Helper.ProcessBarHelper;
@@ -159,9 +160,15 @@ public class RecipientsActivity extends Activity {
             if (mFileType.equals(ParseConstants.TYPE_IMAGE)) {
                 fileBytes = FileHelper.reduceImageForUpload(fileBytes);  //limit 10MB
             }
+
+            int orientation = MediaHelper.getExifOrientation(mMediaUri, this);
+            Log.d(TAG, orientation + "");
+            message.put(ParseConstants.KEY_ROTATION, orientation);
+
             String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
             ParseFile file = new ParseFile(fileName, fileBytes);
             message.put(ParseConstants.KEY_FILE, file);
+
             return message;
         }
     }
