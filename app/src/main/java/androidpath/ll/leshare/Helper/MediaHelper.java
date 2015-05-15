@@ -1,8 +1,12 @@
 package androidpath.ll.leshare.Helper;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.File;
@@ -11,7 +15,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidpath.ll.leshare.R;
-import androidpath.ll.leshare.View.MainActivity;
 
 /**
  * Created by Le on 2015/5/9.
@@ -58,6 +61,7 @@ public class MediaHelper {
                 return null;
             }
             Log.d(TAG, "File : " + Uri.fromFile(mediaFile));
+
             //5. return file's uri
             return Uri.fromFile(mediaFile);
         } else {
@@ -73,4 +77,45 @@ public class MediaHelper {
             return false;
         }
     }
+
+    public static int getExifOrientation(Uri uri, Context context) {
+        Cursor cursor = null;
+        try {
+            String[] CONTENT_ORIENTATION = {MediaStore.Images.Media.ORIENTATION};
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
+                String id = DocumentsContract.getDocumentId(uri);
+                id = id.split(":")[1];
+                cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CONTENT_ORIENTATION, MediaStore.Images.Media._ID + " = ?", new String[]{id}, null);
+            } else {
+
+                cursor = context.getContentResolver().query(uri, CONTENT_ORIENTATION, null, null, null);
+            }
+            if (cursor == null || !cursor.moveToFirst()) {
+                return 0;
+            }
+            int orientation = cursor.getInt(cursor.getColumnIndex(CONTENT_ORIENTATION[0]));
+            return orientation;
+        } catch (RuntimeException ignored) {
+            // If the orientation column doesn't exist, assume no rotation.
+        }
+        return -1;
+    }
+
+    public static String getImagePath(Context context, Uri uri) {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = context.getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+        return path;
+    }
+
 }
