@@ -67,9 +67,7 @@ public class LoginActivity extends Activity {
             ParseUser.logInInBackground(username, password, new LogInCallback() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
-
                     ProcessBarHelper.completeProcess(progressBar);
-
                     if (e == null) {
                         //login successfully, go back to Inbox (MainActivity)
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

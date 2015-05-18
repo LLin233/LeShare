@@ -3,6 +3,7 @@ package androidpath.ll.leshare.View;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -118,6 +119,7 @@ public class MainActivity extends FragmentActivity {
                     Toast.makeText(this, getString(R.string.msg_general_error), Toast.LENGTH_SHORT).show();
                 } else {
                     mMediaUri = data.getData();
+
                 }
 
                 if (requestCode == REQUEST_CHOOSE_VIDEO) { //filter data by size < 10 MB
@@ -210,8 +212,10 @@ public class MainActivity extends FragmentActivity {
             //display a error
             Toast.makeText(MainActivity.this, "Can't accress external storage in your device.", Toast.LENGTH_SHORT).show();
         } else {
+            //TODO rotate photo to fix it.
             takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
             startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO);
+
         }
     }
 
@@ -229,5 +233,6 @@ public class MainActivity extends FragmentActivity {
             startActivityForResult(videoIntent, REQUEST_TAKE_VIDEO);
         }
     }
+
 
 }
