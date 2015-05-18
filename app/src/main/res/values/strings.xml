@@ -17,10 +17,12 @@
     <string name="login_error_title">Oops!!</string>
 
     <!--SignUpActivity -->
-    <string name="title_activity_sign_up">Sign Up</string>
-    <string name="button_signup_label">Sign up</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="button_signup_label">SIGN UP</string>
+    <string name="button_cancel_label">CANCEL</string>
     <string name="signup_error_msg">Please make sure you enter a username, password and your email address.</string>
     <string name="signup_error_title">Oops!!</string>
+
 
     <!--Menu -->
     <string name="menu_logout_label">Log out</string>
@@ -53,6 +55,7 @@
     <string name="title_activity_view_image">ViewImageActivity</string>
     <string name="content_description_background">Frog background image</string>
     <string name="subtitle">Photo, Video, Share and then Destroy</string>
+
 
 
 </resources>

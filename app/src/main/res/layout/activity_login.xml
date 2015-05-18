@@ -1,104 +1,42 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@mipmap/background_fill"
-                tools:context="androidpath.ll.leshare.View.LoginActivity"
+<RelativeLayout
+    style="@style/AuthBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="androidpath.ll.leshare.View.LoginActivity"
     >
 
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/background"
-        android:contentDescription="@string/content_description_background"
-        android:scaleType="fitStart"/>
-
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:textSize="60sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_centerHorizontal="true"
-        android:text="@string/subtitle"
-        android:textColor="@android:color/white"
-        android:textSize="13sp"/>
+    <include layout="@layout/auth_common"/>
 
     <LinearLayout
         android:id="@+id/inputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/subtitle"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/login_vertical_margin"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/login_vertical_padding"
-        android:paddingLeft="@dimen/login_horizontal_padding"
-        android:paddingRight="@dimen/login_horizontal_padding"
-        android:paddingTop="@dimen/login_vertical_padding"
-        android:weightSum="1">
+        style="@style/AuthFieldContainer">
 
         <EditText
             android:id="@+id/login_username_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/input_hint_username"
-            android:maxLength="30"
-            android:singleLine="true"
-            android:textColorHint="@color/light_gray"
-            android:textSize="18sp"
-            >
+            style="@style/AuthEditText"
+            android:hint="@string/input_hint_username">
 
             <requestFocus/>
         </EditText>
 
         <EditText
             android:id="@+id/login_password_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
+            style="@style/AuthEditText"
             android:hint="@string/input_hint_password"
             android:inputType="textPassword"
-            android:maxLength="20"
-            android:singleLine="true"
-            android:textColorHint="@color/light_gray"
-            android:textSize="18sp"/>
-
+            />
 
     </LinearLayout>
 
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/AuthButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/inputLayout"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@drawable/buttion_custom"
-        android:text="@string/login_button_label"
-        android:textColor="@color/text_color"
-        android:textSize="13sp"/>
+        android:layout_below="@id/inputLayout"
+        android:text="@string/login_button_label"/>
 
     <TextView
         android:id="@+id/login_signUp_label"
@@ -117,13 +55,13 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="false"
-        android:visibility="invisible"
         android:layout_above="@+id/login_signUp_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:indeterminate="false"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>
