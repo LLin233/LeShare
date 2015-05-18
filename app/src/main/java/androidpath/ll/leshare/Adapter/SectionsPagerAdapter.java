@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.astuetz.PagerSlidingTabStrip;
+
 import java.util.Locale;
 
 import androidpath.ll.leshare.R;
@@ -14,9 +16,13 @@ import androidpath.ll.leshare.View.Fragments.InboxFragment;
 /**
  * Created by Le on 2015/5/8.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
+
+    final int PAGE_COUNT = 2;
 
     protected Context mContext;
+    private int tabIcons[] = {R.mipmap.ic_tab_inbox, R.mipmap.ic_tab_friends};
+
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -36,7 +42,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return PAGE_COUNT;
     }
 
     @Override
@@ -49,5 +55,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return mContext.getString(R.string.tab_title_section2).toUpperCase(l);
         }
         return null;
+    }
+
+    @Override
+    public int getPageIconResId(int position) {
+        return tabIcons[position];
     }
 }
