@@ -82,4 +82,9 @@ public class SignUpActivity extends Activity {
         }
 
     }
+
+    @OnClick(R.id.signup_btn_cancel)
+    void cancel() {
+        finish();
+    }
 }
