@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidpath.ll.leshare.Helper.ParseConstants;
+import androidpath.ll.leshare.Utils.ParseConstants;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;

@@ -12,8 +12,8 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import androidpath.ll.leshare.Helper.MyAlert;
-import androidpath.ll.leshare.Helper.ProcessBarHelper;
+import androidpath.ll.leshare.Utils.MyAlert;
+import androidpath.ll.leshare.Utils.ProcessBarHelper;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
