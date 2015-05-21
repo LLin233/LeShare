@@ -20,24 +20,27 @@
         app:mlpb_progress_stoke_width="3dp"/>
 
     <LinearLayout
+        android:id="@+id/inbox_list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/inbox_list_container">
+        android:orientation="vertical">
 
         <ListView
             android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/inbox_vertical_margin"
+            android:paddingTop="@dimen/inbox_vertical_margin"
             />
 
         <TextView
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/inbox_empty_label"
-            android:layout_gravity="center"/>
+            android:text="@string/inbox_empty_label"/>
     </LinearLayout>
 
 </RelativeLayout>
