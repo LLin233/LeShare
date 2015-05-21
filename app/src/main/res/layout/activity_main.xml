@@ -16,8 +16,6 @@
         app:pstsIndicatorColor="@color/tab_indicator"
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="true"
-        app:pstsUnderlineColor="@color/white"
-
         >
     </com.astuetz.PagerSlidingTabStrip>
 
