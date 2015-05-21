@@ -19,6 +19,7 @@
     <color name="tab_indicator">#4a2b70</color>
     <color name="accent">#ba9dda</color>
     <color name="light_purple_button">#e1d2f3</color>
+    <color name="light_purple_background">#e9e4ed</color>
     <color name="pressed_purple_button">#ba9dda</color>
     <color name="focused_purple_button">#d6c3ed</color>
     <color name="text_color">#250054</color>
