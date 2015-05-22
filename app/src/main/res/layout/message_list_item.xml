@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:background="@android:color/transparent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/inbox_vertical_margin"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/inbox_horizontal_margin"
                     android:layout_marginRight="@dimen/inbox_horizontal_margin"
                     android:layout_marginTop="@dimen/inbox_vertical_margin"
-                    android:background="@android:color/white"
-                    android:orientation="vertical">
+                    android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/message_Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:paddingBottom="@dimen/message_list_item_vertical_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:paddingLeft="@dimen/message_list_item_horizontal_margin"
             android:paddingRight="@dimen/message_list_item_horizontal_margin"
-            android:paddingTop="@dimen/message_list_item_vertical_margin"
             android:src="@mipmap/ic_action_picture"/>
 
         <TextView
             android:id="@+id/message_sender_label"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/message_Icon"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/message_Icon"
-            android:gravity="center"
-            android:paddingBottom="@dimen/message_list_item_vertical_margin"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/message_Icon"
+            android:paddingBottom="@dimen/msg_vertical_padding"
             android:paddingLeft="@dimen/message_list_item_horizontal_margin"
-            android:paddingRight="@dimen/message_list_item_horizontal_margin"
-            android:paddingTop="@dimen/message_list_item_vertical_margin"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:paddingTop="@dimen/msg_vertical_padding"
+            android:text="Test Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/message_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/message_sender_label"
+            android:paddingBottom="@dimen/msg_vertical_padding"
+            android:paddingLeft="@dimen/message_list_item_horizontal_margin"
+            android:text="time"
+
+            android:textColor="@color/light_gray"
+            android:textSize="12sp"
+
+            />
     </RelativeLayout>
 </LinearLayout>
