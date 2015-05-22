@@ -83,7 +83,7 @@ public class MediaHelper {
         try {
             String[] CONTENT_ORIENTATION = {MediaStore.Images.Media.ORIENTATION};
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&& DocumentsContract.isDocumentUri(context, uri)) {
                 String id = DocumentsContract.getDocumentId(uri);
                 id = id.split(":")[1];
                 cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CONTENT_ORIENTATION, MediaStore.Images.Media._ID + " = ?", new String[]{id}, null);

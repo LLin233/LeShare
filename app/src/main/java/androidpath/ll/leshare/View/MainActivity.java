@@ -155,15 +155,19 @@ public class MainActivity extends FragmentActivity {
             //after uri is ready, start recipientsActivity
             Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
             recipientsIntent.setData(mMediaUri);
+
+            int orientation = MediaHelper.getExifOrientation(mMediaUri, this);
+            Log.d(TAG, "orientation: " + orientation);
+
             String fileType;
             if (requestCode == REQUEST_CHOOSE_PHOTO || requestCode == REQUEST_TAKE_PHOTO) {
                 fileType = ParseConstants.TYPE_IMAGE;
             } else {
                 fileType = ParseConstants.TYPE_VIDEO;
             }
+            recipientsIntent.putExtra(ParseConstants.KEY_ROTATION, orientation);
             recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE, fileType);
             startActivity(recipientsIntent);
-
 
         } else if (resultCode != RESULT_CANCELED) {
             Toast.makeText(this, getString(R.string.msg_general_error), Toast.LENGTH_SHORT).show();

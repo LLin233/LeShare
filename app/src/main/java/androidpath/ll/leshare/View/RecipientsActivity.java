@@ -26,12 +26,11 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidpath.ll.leshare.R;
 import androidpath.ll.leshare.Utils.FileHelper;
-import androidpath.ll.leshare.Utils.MediaHelper;
 import androidpath.ll.leshare.Utils.MyAlert;
 import androidpath.ll.leshare.Utils.ParseConstants;
 import androidpath.ll.leshare.Utils.ProcessBarHelper;
-import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -44,6 +43,7 @@ public class RecipientsActivity extends Activity {
     protected MenuItem mMenuItem_Send;
     protected Uri mMediaUri;
     protected String mFileType;
+    protected int mOrientation;
 
     @InjectView(R.id.recipients_progressBar)
     ProgressBar mProgressBar;
@@ -62,6 +62,7 @@ public class RecipientsActivity extends Activity {
         //get file
         mMediaUri = getIntent().getData();
         mFileType = getIntent().getExtras().getString(ParseConstants.KEY_FILE_TYPE);
+        mOrientation = getIntent().getExtras().getInt(ParseConstants.KEY_ROTATION);
 
         //add click item event
         mFriendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,6 +131,7 @@ public class RecipientsActivity extends Activity {
         if (id == R.id.action_send) {
             //send message to back-end
             ParseObject message = createMessgae();
+
             if (message != null) {
                 sendMessage(message);
                 finish(); // close activity after send out the message.
@@ -161,13 +163,10 @@ public class RecipientsActivity extends Activity {
                 fileBytes = FileHelper.reduceImageForUpload(fileBytes);  //limit 10MB
             }
 
-            int orientation = MediaHelper.getExifOrientation(mMediaUri, this);
-            Log.d(TAG, orientation + "");
-            message.put(ParseConstants.KEY_ROTATION, orientation);
-
             String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
             ParseFile file = new ParseFile(fileName, fileBytes);
             message.put(ParseConstants.KEY_FILE, file);
+            message.put(ParseConstants.KEY_ROTATION, mOrientation);
 
             return message;
         }
