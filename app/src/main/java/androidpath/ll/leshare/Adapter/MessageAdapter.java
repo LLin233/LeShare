@@ -46,9 +46,9 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
         ParseObject message = mMessages.get(position);
 
         if (message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.TYPE_IMAGE)) {
-            holder.iconImageView.setImageResource(R.mipmap.ic_action_picture);
+            holder.iconImageView.setImageResource(R.mipmap.ic_picture);
         } else {
-            holder.iconImageView.setImageResource(R.mipmap.ic_action_play_over_video);
+            holder.iconImageView.setImageResource(R.mipmap.ic_video);
         }
         holder.senderNameLabel.setText(message.getString(ParseConstants.KEY_SENDER_NAME));
 
