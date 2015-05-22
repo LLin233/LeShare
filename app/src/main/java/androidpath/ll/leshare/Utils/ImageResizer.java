@@ -1,5 +1,5 @@
 
-package androidpath.ll.leshare.Helper;
+package androidpath.ll.leshare.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

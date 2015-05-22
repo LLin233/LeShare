@@ -1,4 +1,4 @@
-package androidpath.ll.leshare.Helper;
+package androidpath.ll.leshare.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

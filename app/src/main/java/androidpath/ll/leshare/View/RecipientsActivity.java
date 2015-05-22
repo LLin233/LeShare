@@ -26,11 +26,11 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidpath.ll.leshare.Helper.FileHelper;
-import androidpath.ll.leshare.Helper.MediaHelper;
-import androidpath.ll.leshare.Helper.MyAlert;
-import androidpath.ll.leshare.Helper.ParseConstants;
-import androidpath.ll.leshare.Helper.ProcessBarHelper;
+import androidpath.ll.leshare.Utils.FileHelper;
+import androidpath.ll.leshare.Utils.MediaHelper;
+import androidpath.ll.leshare.Utils.MyAlert;
+import androidpath.ll.leshare.Utils.ParseConstants;
+import androidpath.ll.leshare.Utils.ProcessBarHelper;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
