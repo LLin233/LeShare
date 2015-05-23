@@ -1,6 +1,7 @@
 package androidpath.ll.leshare.Adapter;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,11 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 
+import java.util.Date;
 import java.util.List;
 
-import androidpath.ll.leshare.Utils.ParseConstants;
 import androidpath.ll.leshare.R;
+import androidpath.ll.leshare.Utils.ParseConstants;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -45,13 +47,23 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
 
         ParseObject message = mMessages.get(position);
 
+        //create relative time window
+        Date createAt = message.getCreatedAt();
+        long now = new Date().getTime();
+        String convertedDate = DateUtils.getRelativeTimeSpanString(
+                createAt.getTime(),
+                now,
+                DateUtils.SECOND_IN_MILLIS
+        ).toString();
+
+        //set icon
         if (message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.TYPE_IMAGE)) {
             holder.iconImageView.setImageResource(R.mipmap.ic_picture);
         } else {
             holder.iconImageView.setImageResource(R.mipmap.ic_video);
         }
         holder.senderNameLabel.setText(message.getString(ParseConstants.KEY_SENDER_NAME));
-
+        holder.timeLabel.setText(convertedDate);
         return convertView;
     }
 
@@ -60,6 +72,8 @@ public class MessageAdapter extends ArrayAdapter<ParseObject> {
         ImageView iconImageView;
         @InjectView(R.id.message_sender_label)
         TextView senderNameLabel;
+        @InjectView(R.id.message_time_label)
+        TextView timeLabel;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
