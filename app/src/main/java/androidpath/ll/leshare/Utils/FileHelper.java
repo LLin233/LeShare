@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import androidpath.ll.leshare.Model.ParseConstants;
+
 public class FileHelper {
 
     public static final String TAG = FileHelper.class.getSimpleName();

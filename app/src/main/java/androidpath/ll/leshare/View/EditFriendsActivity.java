@@ -19,7 +19,7 @@ import com.parse.SaveCallback;
 import java.util.List;
 
 import androidpath.ll.leshare.Utils.MyAlert;
-import androidpath.ll.leshare.Utils.ParseConstants;
+import androidpath.ll.leshare.Model.ParseConstants;
 import androidpath.ll.leshare.Utils.ProcessBarHelper;
 import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;

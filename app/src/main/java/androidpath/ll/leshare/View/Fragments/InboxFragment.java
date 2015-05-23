@@ -25,7 +25,7 @@ import java.util.List;
 
 import androidpath.ll.leshare.Adapter.MessageAdapter;
 import androidpath.ll.leshare.R;
-import androidpath.ll.leshare.Utils.ParseConstants;
+import androidpath.ll.leshare.Model.ParseConstants;
 import androidpath.ll.leshare.View.ViewImageActivity;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
