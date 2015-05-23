@@ -1,4 +1,4 @@
-package androidpath.ll.leshare.Utils;
+package androidpath.ll.leshare.Model;
 
 /**
  * Created by Le on 2015/5/8.
