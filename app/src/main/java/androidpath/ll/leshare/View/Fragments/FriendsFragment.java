@@ -1,12 +1,14 @@
 package androidpath.ll.leshare.View.Fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,16 +22,22 @@ import androidpath.ll.leshare.Model.ParseConstants;
 import androidpath.ll.leshare.R;
 import androidpath.ll.leshare.Utils.MyAlert;
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by Le on 2015/5/8.
  */
-public class FriendsFragment extends ListFragment {
+public class FriendsFragment extends Fragment {
     public static final String TAG = FriendsFragment.class.getSimpleName();
 
     protected List<ParseUser> mFriends;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
+
+    @InjectView(R.id.friendGrid)
+    protected GridView mGridView;
+    @InjectView(android.R.id.empty)
+    TextView mEmptyTextView;
 
 
     @Override
@@ -37,6 +45,7 @@ public class FriendsFragment extends ListFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
         ButterKnife.inject(this, rootView);
+        mGridView.setEmptyView(mEmptyTextView);
         return rootView;
     }
 
@@ -62,11 +71,12 @@ public class FriendsFragment extends ListFragment {
                     for (ParseUser user : mFriends) {
                         usernames[i++] = user.getUsername();
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_list_item_1, usernames);
-                    setListAdapter(adapter);
+                    //TODO change layout for gridView
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, usernames);
+                    mGridView.setAdapter(adapter);
                 } else {
                     Log.e(TAG, e.getMessage());
-                    MyAlert.showAlertDialog(getListView().getContext(), getString(R.string.error_title), e.getMessage());
+                    MyAlert.showAlertDialog(getActivity(), getString(R.string.error_title), e.getMessage());
                 }
 
             }
