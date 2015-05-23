@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -18,6 +17,7 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+import androidpath.ll.leshare.Adapter.UserAdapter;
 import androidpath.ll.leshare.Model.ParseConstants;
 import androidpath.ll.leshare.R;
 import androidpath.ll.leshare.Utils.MyAlert;
@@ -71,9 +71,14 @@ public class FriendsFragment extends Fragment {
                     for (ParseUser user : mFriends) {
                         usernames[i++] = user.getUsername();
                     }
-                    //TODO change layout for gridView
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, usernames);
-                    mGridView.setAdapter(adapter);
+                    if (mGridView.getAdapter() == null) {
+                        UserAdapter adapter = new UserAdapter(getActivity(), mFriends);
+                        mGridView.setAdapter(adapter);
+                    } else {
+                        ((UserAdapter) mGridView.getAdapter()).update(mFriends);
+                    }
+
+
                 } else {
                     Log.e(TAG, e.getMessage());
                     MyAlert.showAlertDialog(getActivity(), getString(R.string.error_title), e.getMessage());
