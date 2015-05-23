@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import androidpath.ll.leshare.R;
-import androidpath.ll.leshare.Utils.ParseConstants;
+import androidpath.ll.leshare.Model.ParseConstants;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
