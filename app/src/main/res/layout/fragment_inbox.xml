@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/inbox_list_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity$InboxFragment">
 
-    <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_above="@android:id/empty"
-        android:layout_centerInParent="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:visibility="gone"
-        app:mlpb_progress_color="#566da9"
-        app:mlpb_progress_stoke_width="3dp"/>
 
-    <LinearLayout
-        android:id="@+id/inbox_list_container"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
 
         <ListView
             android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:clipToPadding="false"
+            android:listSelector="@drawable/selectable_background_leshare"
             android:paddingBottom="@dimen/inbox_vertical_margin"
             android:paddingTop="@dimen/inbox_vertical_margin"
             />
 
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/inbox_empty_label"/>
-    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/inbox_empty_label"/>
 
 </RelativeLayout>
