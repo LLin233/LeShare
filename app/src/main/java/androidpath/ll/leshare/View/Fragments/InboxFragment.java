@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
-import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -22,21 +24,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidpath.ll.leshare.Adapter.MessageAdapter;
-import androidpath.ll.leshare.Utils.ParseConstants;
 import androidpath.ll.leshare.R;
+import androidpath.ll.leshare.Utils.ParseConstants;
 import androidpath.ll.leshare.View.ViewImageActivity;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 
 /**
  * Created by Le on 2015/5/8.
  */
 public class InboxFragment extends ListFragment {
 
-    @InjectView(R.id.progressBar)
-    CircleProgressBar circleProgressBar;
     @InjectView(R.id.inbox_list_container)
-    LinearLayout container;
+    RelativeLayout container;
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     protected List<ParseObject> mMessages;
 
@@ -44,19 +47,20 @@ public class InboxFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inbox, container, false);
         ButterKnife.inject(this, rootView);
-        circleProgressBar.setColorSchemeResources(android.R.color.holo_blue_bright);
-        circleProgressBar.setShowArrow(true);
-
+        mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        circleProgressBar.setVisibility(CircleProgressBar.VISIBLE);
         container.setVisibility(LinearLayout.GONE);
+        updateMessages();
+    }
 
+    private void updateMessages() {
         //get message from server
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_MESSAGES);
         query.whereEqualTo(ParseConstants.KEY_RECIPIENT_IDS, ParseUser.getCurrentUser().getObjectId());  //get all the msg under current user
@@ -65,21 +69,17 @@ public class InboxFragment extends ListFragment {
             @Override
             public void done(List<ParseObject> messages, ParseException e) {
                 container.setVisibility(LinearLayout.VISIBLE);
-                circleProgressBar.setVisibility(CircleProgressBar.GONE);
+
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+
                 if (e == null) {
 //                    //msg is found
                     mMessages = messages;
                     if (getListView().getAdapter() == null) {
                         MessageAdapter adapter = new MessageAdapter(getListView().getContext(), mMessages);
                         setListAdapter(adapter);
-
-//                  String[] usernames = new String[mMessages.size()];
-//                  int i = 0;
-//                  for (ParseObject msg : mMessages) {
-//                      usernames[i] = msg.getString(ParseConstants.KEY_SENDER_NAME);
-//                      i++;
-//                  }
-//                  ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_list_item_1, usernames);
                     } else {
                         ((MessageAdapter) getListView().getAdapter()).update(mMessages);
                     }
@@ -126,4 +126,12 @@ public class InboxFragment extends ListFragment {
             message.saveInBackground();
         }
     }
+
+
+    protected OnRefreshListener mOnRefreshListener = new OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            updateMessages();
+        }
+    };
 }
