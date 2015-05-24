@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,13 +61,17 @@ public class UserAdapter extends ArrayAdapter<ParseUser> {
                     .into(holder.userImageView);
         }
 
-        //set icon
-//        if (message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.TYPE_IMAGE)) {
-//            holder.iconImageView.setImageResource(R.mipmap.ic_picture);
-//        } else {
-//            holder.iconImageView.setImageResource(R.mipmap.ic_video);
-//        }
         holder.userNameLabel.setText(user.getUsername());
+
+        GridView gridView = (GridView) parent;
+        if (gridView.isItemChecked(position)) {
+            //this is a friend of users already.
+            holder.checkImageView.setVisibility(View.VISIBLE);
+        } else {
+            holder.checkImageView.setVisibility(View.INVISIBLE);
+        }
+
+
         return convertView;
     }
 
@@ -75,7 +80,8 @@ public class UserAdapter extends ArrayAdapter<ParseUser> {
         ImageView userImageView;
         @InjectView(R.id.name_label)
         TextView userNameLabel;
-
+        @InjectView(R.id.checkImageView)
+        ImageView checkImageView;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
