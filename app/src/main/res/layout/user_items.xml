@@ -6,16 +6,16 @@
 
     <ImageView
         android:id="@+id/userImageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
+        style="@style/GridImage"
         android:contentDescription="@string/content_desc_user_avatar"
-        android:scaleType="fitXY"
-
         android:src="@mipmap/avatar_empty"/>
+
+    <ImageView
+        android:id="@+id/checkImageView"
+        style="@style/GridImage"
+        android:contentDescription="@string/User_check_mark"
+        android:src="@mipmap/avatar_selected"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/name_label"
