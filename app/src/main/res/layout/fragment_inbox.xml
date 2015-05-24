@@ -21,9 +21,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:clipToPadding="false"
+            android:paddingBottom="@dimen/inbox_vertical_padding"
             android:listSelector="@drawable/selectable_background_leshare"
-            android:paddingBottom="@dimen/inbox_vertical_margin"
-            android:paddingTop="@dimen/inbox_vertical_margin"
             />
 
     </android.support.v4.widget.SwipeRefreshLayout>

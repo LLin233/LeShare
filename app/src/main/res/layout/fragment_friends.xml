@@ -6,12 +6,15 @@
                 android:orientation="vertical"
                 tools:context=".MainActivity$FrinedsFragment">
 
-
     <GridView
         android:id="@+id/friendGrid"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:numColumns="3">
+        android:clipToPadding="false"
+        android:horizontalSpacing="@dimen/user_grid_spacing"
+        android:numColumns="3"
+        android:verticalSpacing="@dimen/user_grid_spacing"
+        >
     </GridView>
 
     <TextView

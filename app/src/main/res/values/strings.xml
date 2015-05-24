@@ -55,7 +55,8 @@
     <string name="title_activity_view_image">ViewImageActivity</string>
     <string name="content_description_background">Frog background image</string>
     <string name="subtitle">Photo, Video, Share and then Destroy</string>
-
+    <string name="content_desc_user_avatar">User avatar</string>
+    <string name="gridview_default_username">Username</string>
 
 
 </resources>
