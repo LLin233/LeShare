@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -18,10 +18,10 @@ import com.parse.SaveCallback;
 
 import java.util.List;
 
-import androidpath.ll.leshare.Utils.MyAlert;
+import androidpath.ll.leshare.Adapter.UserAdapter;
 import androidpath.ll.leshare.Model.ParseConstants;
-import androidpath.ll.leshare.Utils.ProcessBarHelper;
 import androidpath.ll.leshare.R;
+import androidpath.ll.leshare.Utils.MyAlert;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -32,42 +32,23 @@ public class EditFriendsActivity extends Activity {
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
 
-    @InjectView(R.id.edit_friends_progressBar)
-    ProgressBar mProgressBar;
-    @InjectView(R.id.edit_friends_list)
-    ListView mFriendsListView;
+    @InjectView(R.id.friendsGrid)
+    GridView mGridView;
+    @InjectView(android.R.id.empty)
+    TextView mEmptyTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_friends);
+        setContentView(R.layout.user_grid);
         ButterKnife.inject(this);
-        mFriendsListView.setEmptyView(mProgressBar);
-        ProcessBarHelper.startProcess(mProgressBar);
+
 
         //make list checkable to implement "select" / "deselect"
-        mFriendsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        mFriendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mFriendsListView.isItemChecked(position)) {
-                    //add Friend
-                    mFriendsRelation.add(mUsers.get(position));
-                } else {
-                    //remove Friend
-                    mFriendsRelation.remove(mUsers.get(position));
-                }
-
-                mCurrentUser.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, e.getMessage());
-                        }
-                    }
-                });
-            }
-        });
+        mGridView.setEmptyView(mEmptyTextView);
+        mGridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
+        mGridView.setOnItemClickListener(mOnClickListener);
 
     }
 
@@ -88,15 +69,18 @@ public class EditFriendsActivity extends Activity {
             public void done(List<ParseUser> users, ParseException e) {
                 if (e == null) {
                     //success
-                    ProcessBarHelper.completeProcess(mProgressBar);
                     mUsers = users;
                     String[] usernames = new String[mUsers.size()];
                     int i = 0;
                     for (ParseUser user : mUsers) {
                         usernames[i++] = user.getUsername();
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(EditFriendsActivity.this, android.R.layout.simple_list_item_checked, usernames);
-                    mFriendsListView.setAdapter(adapter);
+                    if (mGridView.getAdapter() == null) {
+                        UserAdapter adapter = new UserAdapter(EditFriendsActivity.this, mUsers);
+                        mGridView.setAdapter(adapter);
+                    } else {
+                        ((UserAdapter) mGridView.getAdapter()).update(mUsers);
+                    }
 
                     addFriendCheckmarks();
 
@@ -120,7 +104,7 @@ public class EditFriendsActivity extends Activity {
                         for (ParseUser friend : friends) {
                             //if person is one of user's friends, check the item.
                             if (friend.getObjectId().equals(user.getObjectId())) {
-                                mFriendsListView.setItemChecked(i, true);
+                                mGridView.setItemChecked(i, true);
                             }
                         }
                     }
@@ -130,4 +114,33 @@ public class EditFriendsActivity extends Activity {
             }
         });
     }
+
+
+    private AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            ImageView checkImageView = ButterKnife.findById(view, R.id.checkImageView);
+
+            if (mGridView.isItemChecked(position)) {
+                // add the selected friend
+                mFriendsRelation.add(mUsers.get(position));
+                checkImageView.setVisibility(View.VISIBLE);
+            } else {
+                //remove the selected friend
+                mFriendsRelation.remove(mUsers.get(position));
+                checkImageView.setVisibility(View.INVISIBLE);
+            }
+
+            mCurrentUser.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+            });
+        }
+    };
+
+
 }
