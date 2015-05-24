@@ -16,13 +16,18 @@
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
         <item name="android:actionOverflowButtonStyle">@style/Theme.Leshare.Overflow</item>
         <item name="android:listViewStyle">@style/Theme.Leshare.lightPurpleBackground</item>
-        <item name="android:gridViewStyle">@style/Theme.Leshare.lightPurpleBackground</item>
+        <item name="android:gridViewStyle">@style/Theme.Leshare.lightPurpleBackground.GridView
+        </item>
 
     </style>
 
     <style name="Theme.Leshare.lightPurpleBackground">
         <item name="android:background">@color/light_purple_background</item>
         <item name="android:divider">@null</item>
+    </style>
+
+    <style name="Theme.Leshare.lightPurpleBackground.GridView">
+        <item name="android:padding">@dimen/inbox_vertical_padding</item>
     </style>
 
     <style name="Theme.Leshare.Overflow" parent="android:Widget.ActionButton.Overflow">
