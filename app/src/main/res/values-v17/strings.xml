@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="button_cancel_label">CANCEL</string>
     <string name="User_check_mark">user check mark</string>
 </resources>
