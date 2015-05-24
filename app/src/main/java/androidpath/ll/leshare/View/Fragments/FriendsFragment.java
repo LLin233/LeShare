@@ -34,7 +34,7 @@ public class FriendsFragment extends Fragment {
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
 
-    @InjectView(R.id.friendGrid)
+    @InjectView(R.id.friendsGrid)
     protected GridView mGridView;
     @InjectView(android.R.id.empty)
     TextView mEmptyTextView;
@@ -43,7 +43,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        View rootView = inflater.inflate(R.layout.user_grid, container, false);
         ButterKnife.inject(this, rootView);
         mGridView.setEmptyView(mEmptyTextView);
         return rootView;
