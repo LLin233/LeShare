@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidpath.ll.leshare.R;
+import androidpath.ll.leshare.Utils.MD5Util;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -42,6 +45,20 @@ public class UserAdapter extends ArrayAdapter<ParseUser> {
         }
 
         ParseUser user = mUsers.get(position);
+        String email = user.getEmail().toLowerCase();
+        if (email.equals("")) {
+            holder.userImageView.setImageResource(R.mipmap.avatar_empty);
+        } else {
+            // http://en.gravatar.com/site/implement/images/java/
+            //get profile pic from gravatar base on email
+            String hash = MD5Util.md5Hex(email);
+            String gravatarUrl = "http://www.gravatar.com/avatar/" + hash
+                    + "?s=204&d=404";
+            Picasso.with(mContext)
+                    .load(gravatarUrl)
+                    .placeholder(R.mipmap.avatar_empty)  //if 404 code returned, show default image.
+                    .into(holder.userImageView);
+        }
 
         //set icon
 //        if (message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.TYPE_IMAGE)) {
@@ -54,8 +71,8 @@ public class UserAdapter extends ArrayAdapter<ParseUser> {
     }
 
     static class ViewHolder {
-        //        @InjectView(R.id.message_Icon)
-//        ImageView iconImageView;
+        @InjectView(R.id.userImageView)
+        ImageView userImageView;
         @InjectView(R.id.name_label)
         TextView userNameLabel;
 
