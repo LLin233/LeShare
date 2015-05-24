@@ -48,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/signup_btn_signup"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@id/signup_btn_signup"
+        android:layout_alignRight="@id/signup_btn_cancel"
         android:indeterminate="false"
         android:visibility="invisible"/>
 

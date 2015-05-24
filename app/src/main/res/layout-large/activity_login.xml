@@ -41,6 +41,18 @@
         android:layout_centerHorizontal="true"
         android:text="@string/login_button_label"/>
 
+    <ProgressBar
+        android:id="@+id/login_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_login"
+        android:layout_alignLeft="@id/btn_login"
+        android:layout_alignRight="@id/btn_login"
+        android:indeterminate="false"
+        android:visibility="invisible"
+        />
+
     <TextView
         android:id="@+id/login_signUp_label"
         android:layout_width="wrap_content"
@@ -52,19 +64,6 @@
         android:text="@string/login_signup_label"
         android:textColor="@android:color/white"
         />
-
-    <ProgressBar
-        android:id="@+id/login_progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/login_signUp_label"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:indeterminate="false"
-        android:visibility="invisible"/>
 
 
 </RelativeLayout>
