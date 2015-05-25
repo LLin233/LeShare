@@ -11,9 +11,10 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import androidpath.ll.leshare.R;
+import androidpath.ll.leshare.Utils.LeShareApplication;
 import androidpath.ll.leshare.Utils.MyAlert;
 import androidpath.ll.leshare.Utils.ProcessBarHelper;
-import androidpath.ll.leshare.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -70,6 +71,9 @@ public class SignUpActivity extends Activity {
                 public void done(ParseException e) {
                     ProcessBarHelper.completeProcess(progressBar);
                     if (e == null) {
+                        //success!
+                        LeShareApplication.updateParseInstallation(ParseUser.getCurrentUser());
+
                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
