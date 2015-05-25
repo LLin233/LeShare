@@ -12,6 +12,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import androidpath.ll.leshare.Utils.LeShareApplication;
 import androidpath.ll.leshare.Utils.MyAlert;
 import androidpath.ll.leshare.Utils.ProcessBarHelper;
 import androidpath.ll.leshare.R;
@@ -53,7 +54,7 @@ public class LoginActivity extends Activity {
                 "\nPassword: " + mPassword.getText();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         //white space should not be considered as legit character.
-        String username = mUsername.getText().toString().trim();
+        final String username = mUsername.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
@@ -70,6 +71,8 @@ public class LoginActivity extends Activity {
                     ProcessBarHelper.completeProcess(progressBar);
                     if (e == null) {
                         //login successfully, go back to Inbox (MainActivity)
+                        LeShareApplication.updateParseInstallation(parseUser);
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
