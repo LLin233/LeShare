@@ -1,77 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="androidpath.ll.leshare" >
+<manifest
+    package="androidpath.ll.leshare"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
+        android:required="true"/>
+
+    <!--
+      IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
+      to match your app's package name + ".permission.C2D_MESSAGE".
+    -->
+    <permission
+        android:name="androidpath.ll.leshare.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="androidpath.ll.leshare.permission.C2D_MESSAGE"/>
+
 
     <application
         android:name=".Utils.LeShareApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Leshare" >
+        android:theme="@style/Theme.Leshare">
         <activity
             android:name=".View.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".View.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".View.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MainActivity" />
+                android:value=".View.MainActivity"/>
         </activity>
         <activity
             android:name=".View.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:parentActivityName=".View.LoginActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="androidpath.ll.leshare.View.LoginActivity" />
+                android:value="androidpath.ll.leshare.View.LoginActivity"/>
         </activity>
         <activity
             android:name=".View.EditFriendsActivity"
             android:label="@string/title_activity_edit_friends"
             android:parentActivityName=".View.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="androidpath.ll.leshare.View.MainActivity" />
+                android:value="androidpath.ll.leshare.View.MainActivity"/>
         </activity>
         <activity
             android:name=".View.RecipientsActivity"
             android:label="@string/title_activity_recipients"
             android:parentActivityName=".View.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="androidpath.ll.leshare.View.MainActivity" />
+                android:value="androidpath.ll.leshare.View.MainActivity"/>
         </activity>
         <activity
             android:name=".View.ViewImageActivity"
             android:label="@string/title_activity_view_image"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".View.MainActivity" >
+            android:parentActivityName=".View.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="androidpath.ll.leshare.View.MainActivity" />
+                android:value="androidpath.ll.leshare.View.MainActivity"/>
         </activity>
+
+
+        <service android:name="com.parse.PushService"/>
+
+        <receiver android:name="com.parse.ParseBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE"/>
+                <action android:name="com.parse.push.intent.DELETE"/>
+                <action android:name="com.parse.push.intent.OPEN"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+
+                <!--
+                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
+                -->
+                <category android:name="androidpath.ll.leshare"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

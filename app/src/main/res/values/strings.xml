@@ -58,6 +58,7 @@
     <string name="content_desc_user_avatar">User avatar</string>
     <string name="gridview_default_username">Username</string>
     <string name="User_check_mark">user check mark</string>
+    <string name="msg_push">"You have a new message from %s!"</string>
 
 
 </resources>
