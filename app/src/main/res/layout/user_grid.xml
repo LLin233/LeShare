@@ -6,6 +6,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 tools:context=".MainActivity$FrinedsFragment">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipients_progressBar"
+        android:visibility="invisible"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/friendsGrid"/>
 
     <GridView
         android:id="@+id/friendsGrid"

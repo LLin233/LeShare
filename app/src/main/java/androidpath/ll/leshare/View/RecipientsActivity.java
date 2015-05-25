@@ -8,7 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,10 +27,11 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidpath.ll.leshare.Adapter.UserAdapter;
+import androidpath.ll.leshare.Model.ParseConstants;
 import androidpath.ll.leshare.R;
 import androidpath.ll.leshare.Utils.FileHelper;
 import androidpath.ll.leshare.Utils.MyAlert;
-import androidpath.ll.leshare.Model.ParseConstants;
 import androidpath.ll.leshare.Utils.ProcessBarHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,19 +47,22 @@ public class RecipientsActivity extends Activity {
     protected String mFileType;
     protected int mOrientation;
 
+
     @InjectView(R.id.recipients_progressBar)
     ProgressBar mProgressBar;
-    @InjectView(R.id.recipients_friends_list)
-    ListView mFriendsListView;
+    @InjectView(R.id.friendsGrid)
+    GridView mGridView;
+    @InjectView(android.R.id.empty)
+    TextView mEmptyTextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipients);
+        setContentView(R.layout.user_grid);
         ButterKnife.inject(this);
-        mFriendsListView.setEmptyView((TextView) findViewById(android.R.id.empty)); //if list is empty
-        mFriendsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mGridView.setEmptyView(mEmptyTextView); //if list is empty
+        mGridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         //get file
         mMediaUri = getIntent().getData();
@@ -65,17 +70,7 @@ public class RecipientsActivity extends Activity {
         mOrientation = getIntent().getExtras().getInt(ParseConstants.KEY_ROTATION);
 
         //add click item event
-        mFriendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mFriendsListView.getCheckedItemCount() > 0) {
-                    mMenuItem_Send.setVisible(true);
-                } else {
-                    mMenuItem_Send.setVisible(false);
-                }
-
-            }
-        });
+        mGridView.setOnItemClickListener(mOnClickListener);
     }
 
     @Override
@@ -100,8 +95,13 @@ public class RecipientsActivity extends Activity {
                     for (ParseUser user : mFriends) {
                         usernames[i++] = user.getUsername();
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(RecipientsActivity.this, android.R.layout.simple_list_item_checked, usernames);
-                    mFriendsListView.setAdapter(adapter);
+                    if (mGridView.getAdapter() == null) {
+                        UserAdapter adapter = new UserAdapter(RecipientsActivity.this, mFriends);
+                        mGridView.setAdapter(adapter);
+                    } else {
+                        ((UserAdapter) mGridView.getAdapter()).update(mFriends);
+                    }
+
                 } else {
                     Log.e(TAG, e.getMessage());
                     MyAlert.showAlertDialog(RecipientsActivity.this, getString(R.string.error_title), e.getMessage());
@@ -188,12 +188,34 @@ public class RecipientsActivity extends Activity {
 
     private ArrayList<String> getRecipientIds() {
         ArrayList<String> recipientIds = new ArrayList<String>();
-        for (int i = 0; i < mFriendsListView.getCount(); i++) {
-            if (mFriendsListView.isItemChecked(i)) { // the one who user decide to send msg to
+        for (int i = 0; i < mGridView.getCount(); i++) {
+            if (mGridView.isItemChecked(i)) { // the one who user decide to send msg to
                 recipientIds.add(mFriends.get(i).getObjectId());
             }
         }
         return recipientIds;
     }
 
+
+    protected AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // show send icon
+            if (mGridView.getCheckedItemCount() > 0) {
+                mMenuItem_Send.setVisible(true);
+            } else {
+                mMenuItem_Send.setVisible(false);
+            }
+            //show checkImage
+            ImageView checkImageView = ButterKnife.findById(view, R.id.checkImageView);
+            if (mGridView.isItemChecked(position)) {
+                checkImageView.setVisibility(View.VISIBLE);
+            } else {
+                checkImageView.setVisibility(View.INVISIBLE);
+            }
+        }
+    };
+
 }
+
+
