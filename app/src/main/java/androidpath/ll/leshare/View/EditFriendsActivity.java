@@ -116,7 +116,7 @@ public class EditFriendsActivity extends Activity {
     }
 
 
-    private AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
+    protected AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ImageView checkImageView = ButterKnife.findById(view, R.id.checkImageView);
