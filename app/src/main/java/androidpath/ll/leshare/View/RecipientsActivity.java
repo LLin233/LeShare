@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -179,11 +181,24 @@ public class RecipientsActivity extends Activity {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(RecipientsActivity.this, "Message sent successfully", Toast.LENGTH_SHORT).show();
+                    sendPushNotifications();
                 } else {
                     MyAlert.showAlertDialog(RecipientsActivity.this, "There was a error sending message, please try again.", getString(R.string.msg_error_selecting_file_title));
                 }
             }
         });
+    }
+
+    protected void sendPushNotifications() {
+        ParseQuery<ParseInstallation> query = ParseInstallation.getQuery();
+        query.whereContainedIn(ParseConstants.KEY_USER_ID, getRecipientIds()); //targeting those users in the RecipientIds.
+        //send Push Notification
+        ParsePush push = new ParsePush();
+        push.setQuery(query);
+        push.setMessage(getString(R.string.msg_push,
+                ParseUser.getCurrentUser().getUsername()));
+        push.sendInBackground();
+
     }
 
     private ArrayList<String> getRecipientIds() {

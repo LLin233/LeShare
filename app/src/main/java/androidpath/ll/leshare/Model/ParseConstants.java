@@ -7,6 +7,7 @@ public class ParseConstants {
 
     //Keys : field names
     public static final String KEY_USERNAME = "username";
+    public static final String KEY_USER_ID = "userId";
     public static final String KEY_RELATION = "relation_friend";
     public static final String KEY_RECIPIENT_IDS = "recipientIds";
     public static final String KEY_SENDER_ID = "senderId";
@@ -15,6 +16,7 @@ public class ParseConstants {
     public static final String KEY_FILE_TYPE = "fileType";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_ROTATION = "rotation";
+
 
     //file name
     public static final String TYPE_IMAGE = "image";
