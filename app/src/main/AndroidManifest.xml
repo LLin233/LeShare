@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest
     package="androidpath.ll.leshare"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -93,6 +95,7 @@
         <service android:name="com.parse.PushService"/>
 
         <receiver android:name="com.parse.ParseBroadcastReceiver">
+
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.USER_PRESENT"/>
@@ -101,6 +104,7 @@
         <receiver
             android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
+
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE"/>
                 <action android:name="com.parse.push.intent.DELETE"/>
@@ -110,6 +114,8 @@
         <receiver
             android:name="com.parse.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
+
+
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
@@ -120,6 +126,10 @@
                 <category android:name="androidpath.ll.leshare"/>
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="com.parse.push.notification_icon"
+            android:resource="@drawable/ic_stat_ic_launcher"/>
 
     </application>
 
