@@ -17,7 +17,7 @@
     <string name="login_error_title">Oops!!</string>
 
     <!--SignUpActivity -->
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_up">SignUp</string>
     <string name="button_signup_label">SIGN UP</string>
     <string name="button_cancel_label">CANCEL</string>
     <string name="signup_error_msg">Please make sure you enter a username, password and your email address.</string>
@@ -52,7 +52,7 @@
     <string name="action_send_msg">Send</string>
     <string name="msg_error_selecting_file">There was an error with the file selected. Please select a different file</string>
     <string name="msg_error_selecting_file_title">We are sorry!</string>
-    <string name="title_activity_view_image">ViewImageActivity</string>
+    <string name="title_activity_view_image">Message</string>
     <string name="content_description_background">Frog background image</string>
     <string name="subtitle">Photo, Video, Share and then Destroy</string>
     <string name="content_desc_user_avatar">User avatar</string>
