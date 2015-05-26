@@ -1,7 +1,7 @@
 # LeShare
 A self-destruction App on Android.
 
-Back-end: Parse.
+Back-end: [Parse](https://parse.com/)
 
 Libs:
 
