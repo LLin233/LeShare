@@ -1,9 +1,9 @@
 # LeShare
 A self-destruction App on Android.
 
-###Stacks
-Back-end: [Parse](https://parse.com/), if you want to use it with your own Parse backend just for demonstration, please replace key with your own key.
-###Libs:
+###Back-end
+[Parse](https://parse.com/), if you want to use it with your own Parse backend just for demonstration, please replace key with your own key.
+###Libs
 [*butterknife*](https://github.com/JakeWharton/butterknife)
 
 [*picasso*](https://github.com/square/picasso)
